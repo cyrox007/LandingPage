@@ -4,6 +4,41 @@ body {
 
 .wrapper {
   min-height: 100%;
+  opacity: 0;
+  -webkit-transition: opacity 0.3 ease 0s;
+  transition: opacity 0.3 ease 0s;
+}
+
+.wrapper._loaded {
+  opacity: 1;
+}
+
+.wrapper._loaded .header {
+  -webkit-transition: -webkit-transform 0.8s ease 0.8s;
+  transition: -webkit-transform 0.8s ease 0.8s;
+  transition: transform 0.8s ease 0.8s;
+  transition: transform 0.8s ease 0.8s, -webkit-transform 0.8s ease 0.8s;
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}
+
+.wrapper._loaded .page__pagination {
+  -webkit-transform: translate(0px, -50%);
+          transform: translate(0px, -50%);
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: -webkit-transform 0.6s ease 0.8s;
+  transition: -webkit-transform 0.6s ease 0.8s;
+  transition: transform 0.6s ease 0.8s;
+  transition: transform 0.6s ease 0.8s, -webkit-transform 0.6s ease 0.8s;
+}
+
+.wrapper._free .page__pagination {
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  -webkit-transform: translate(50px, -50%);
+          transform: translate(50px, -50%);
+  opacity: 0;
 }
 
 .header {
@@ -13,6 +48,8 @@ body {
   left: 0;
   z-index: 50;
   padding: 0px 20px;
+  -webkit-transform: translate(0px, -100%);
+          transform: translate(0px, -100%);
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -34,6 +71,10 @@ body {
   -webkit-transition: color 0.3s ease 0s;
   transition: color 0.3s ease 0s;
   margin: 0 20px 0 0;
+}
+
+.menu__link._active {
+  color: #7a956b;
 }
 
 .page {
@@ -61,8 +102,10 @@ body {
   position: absolute;
   top: 50%;
   right: 50px;
-  -webkit-transform: translate(0px, -50%);
-          transform: translate(0px, -50%);
+  -webkit-transform: translate(50px, -50%);
+          transform: translate(50px, -50%);
+  opacity: 0;
+  visibility: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

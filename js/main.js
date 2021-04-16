@@ -1,3 +1,5 @@
+let wrapper = document.querySelector('.wrapper')
+
 let pageSlider = new Swiper('.page', {
     // Свои классы
     wrapperClass: "page__wrapper",
@@ -71,6 +73,24 @@ let pageSlider = new Swiper('.page', {
         // возможность перетаскивать скролл
         draggable: true,
     },
+
+    // Отключение автоматизации
+    init: false,
+
+    // События 
+    on: {
+        // СОбытия инициализации
+        init: function() {
+            menuSlider();
+            setScrollType();
+            wrapper.classList.add('_loaded')
+        },
+        // Событие смены слайда
+        slideChange: function() {
+            menuSliderRemuve();
+            menuLinks[pageSlider.realIndex].classList.add('_active');
+        },
+    },
 });
 
 let menuLinks = document.querySelectorAll('.menu__link');
@@ -97,3 +117,26 @@ function menuSliderRemuve(params) {
         menuLinkActive.classList.remove('_active');
     }
 }
+
+function setScrollType() {
+    if (wrapper.classList.contains) {
+        wrapper.classList.remove('_free');
+        pageSlider.params.freeMode = false;
+    }
+
+    for (let i = 0; i < pageSlider.slides.length; i++) {
+        const pageSlide = pageSlider.slides[i];
+        const pageSlideContent = pageSlide.querySelector('.screen__content');
+
+        if(pageSlideContent) {
+            const pageSlideContentHeight = pageSlideContent.offsetHeight;
+            if (pageSlideContentHeight > window.innerHeight) {
+                wrapper.classList.add('._free');
+                pageSlider.params.freeMode = true;
+                break;
+            }
+        }
+    }
+}
+
+pageSlider.init();
